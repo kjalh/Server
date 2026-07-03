@@ -10,7 +10,9 @@ const router = express.Router()
 router.get("/", isAuth, postController.getPosts)
 
 // 글번호에 대한 POST 가져오기
-
+// http://127.0.0.1:8080/post (GET)
+// 만들어보기
+router.get("/:id", isAuth, postController.getPost)
 
 // POST 쓰기
 // http://127.0.0.1:8080/post
