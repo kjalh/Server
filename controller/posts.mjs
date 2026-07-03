@@ -15,7 +15,7 @@ export async function getPosts(req, res){
     res.status(200).json(data)
 }
 
-//id로 포스트를 가져오는 함수
+// id로 포스트를 가져오는 함수
 export async function getPost(req, res){
     const id = req.params.id
     const post = await postRepository.getById(id)
@@ -25,4 +25,35 @@ export async function getPost(req, res){
     else{
         res.status(404).json({message: `${id}의 포스트가 없습니다`})
     }
+}
+
+// id로 포스트를 삭제하는 함수
+// 내가 함
+// export async function getPostDel(req, res){
+//     const id = req.params.id
+//     const post = await postRepository.Delpost(id)
+
+//     if(post){
+//         res.status(200).json({message: `${id}의 포스트 삭제됨`})
+//     }
+//     else{
+//         res.status(404).json({message: `${id}의 포스트 삭제 안 됨`})
+//     }
+// }
+
+// 포스트를 삭제하는 함수
+export async function deletePost(req, res){
+    const id = req.params.id
+    const post = await postRepository.getById(id)
+
+    if(!post){
+        return res.status(404).json({message: `${id}의 포스트가 없습니다`})
+    }
+    
+    if(post.idx !== req.id){
+        return res.sendStatus(403)
+    }
+    await postRepository.remove(id)
+
+    res.sendStatus(204) // 내용 없음
 }

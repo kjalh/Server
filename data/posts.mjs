@@ -32,6 +32,16 @@ export async function getById(id){
     return getPosts().find({ _id: new ObjectId(id) }).sort({ createdAt: -1 }).next().then(mapOptionalPost)
 }
 
+// // 글 번호(id) 삭제한 거 리턴
+// export async function Delpost(id){
+//     return getPosts().deleteOne({ _id: new ObjectId(id) })
+// }
+// 포스트 삭제
+export async function remove(id){
+    return getPosts().deleteOne({ _id: new ObjectId(id) })
+}
+
+
 function mapOptionalPost(post){
     return post ? {...post, id: post._id.toString() } : post
 }

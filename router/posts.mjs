@@ -11,6 +11,7 @@ router.get("/", isAuth, postController.getPosts)
 
 // 글번호에 대한 POST 가져오기
 // http://127.0.0.1:8080/post (GET)
+// http://127.0.0.1:8080/post/글번호(id)
 // 만들어보기
 router.get("/:id", isAuth, postController.getPost)
 
@@ -21,7 +22,15 @@ router.post("/", isAuth, postController.createPost)
 // POST 수정하기
 
 
+
+
 // POST 삭제하기
+// http://127.0.0.1:8080/post (DELLETE)
+// http://127.0.0.1:8080/post/글번호
+// router.delete("/:id", isAuth, postController.getPostDel) // 내가 함
+
+// http://127.0.0.1:8080/post/:id   (DELETE)
+router.delete("/:id", isAuth, postController.deletePost)
 
 
 
