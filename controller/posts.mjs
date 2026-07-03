@@ -57,3 +57,21 @@ export async function deletePost(req, res){
 
     res.sendStatus(204) // 내용 없음
 }
+
+
+// 포스트를 변경하는 함수
+export async function updatePost(req, res) {
+    const id = req.params.id
+    const text = req.body.text
+    const post = await postRepository.getById(id)
+
+    if(!post){
+        return res.status(404).json({ message: `${id}의 포스트가 없습니다` })
+    }
+    if(post.idx !== req.id){
+        return res.sendStatus(403)
+    }
+    const updated = await postRepository.update(id, text)
+    res.status(200).json(updated)
+    
+}

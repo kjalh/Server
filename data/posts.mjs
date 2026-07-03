@@ -1,4 +1,4 @@
-import MongoDB from "mongodb"
+import MongoDB, { ReturnDocument } from "mongodb"
 import * as UserRepository from "./auth.mjs"
 import { getPosts } from "../db/database.mjs"
 
@@ -40,6 +40,17 @@ export async function getById(id){
 export async function remove(id){
     return getPosts().deleteOne({ _id: new ObjectId(id) })
 }
+
+
+// 포스트 변경
+export async function update(id, text) {
+    return getPosts().findOneAndUpdate(
+        {_id: new ObjectId(id)},
+        { $set: {text}},
+        {returnDocument: "agter"}
+    ).then((result) => result)
+}
+
 
 
 function mapOptionalPost(post){
